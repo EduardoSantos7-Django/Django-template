@@ -1,0 +1,7 @@
+django==3.*
+django-ninja
+djangorestframework
+gunicorn
+psycopg2-binary
+python-dotenv
+whitenoise
