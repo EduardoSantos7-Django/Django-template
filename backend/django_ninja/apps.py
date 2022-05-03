@@ -6,4 +6,4 @@ class NinjaConfig(AppConfig):
     name = 'ninja'
 
     def ready(self) -> None:
-        import ninja.signals
+        import django_ninja.signals

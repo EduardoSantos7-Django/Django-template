@@ -1,7 +1,7 @@
 from ninja import NinjaAPI
-from ninja.api import router as router
+from django_ninja.api import router as ninja_router
 
 api = NinjaAPI(
     title="API Docs"
 )
-api.add_router('', router)
+api.add_router('', ninja_router)

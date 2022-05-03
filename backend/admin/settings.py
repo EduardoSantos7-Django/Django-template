@@ -26,8 +26,6 @@ ALLOWED_HOSTS = [
 # Application definition
 
 CUSTOM_APPS = [
-    'drf.apps.DRFConfig',
-    'ninja.apps.NinjaConfig',
 ]
 
 INSTALLED_APPS = [
@@ -37,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
+    # 'rest_framework',
 ] + CUSTOM_APPS
 
 MIDDLEWARE = [
