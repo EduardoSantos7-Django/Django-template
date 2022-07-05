@@ -1,7 +1,9 @@
-django==3.*
-django-ninja
+django==4.*
 djangorestframework
+drf-spectacular
 gunicorn
 psycopg2-binary
+pytest
+pytest-django
 python-dotenv
 whitenoise
