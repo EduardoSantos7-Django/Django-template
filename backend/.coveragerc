@@ -1,0 +1,8 @@
+[run]
+source =
+  accounts
+
+[report]
+show_missing = True
+skip_covered = True
+exclude_lines = case _:
