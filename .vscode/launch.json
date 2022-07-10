@@ -11,7 +11,8 @@
       "program": "${workspaceFolder}\\backend\\manage.py",
       "args": ["runserver", "--nostatic"],
       "django": true,
-      "justMyCode": false
+      "justMyCode": false,
+      "env": { "DEBUG": "1" }
     }
   ]
 }
