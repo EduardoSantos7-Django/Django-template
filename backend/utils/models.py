@@ -1,6 +1,6 @@
 import random
 import string
-from django.db import OperationalError
+from django.db import OperationalError, ProgrammingError
 
 from django.db.models import Model
 
@@ -14,7 +14,7 @@ def generate_pk_base_64(model: Model, size=11) -> str:
         try:
             if not model.objects.filter(pk=id).exists():
                 break
-        except OperationalError:
+        except (OperationalError, ProgrammingError):
             break
 
     return id
