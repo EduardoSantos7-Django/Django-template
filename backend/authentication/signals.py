@@ -2,7 +2,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from .models import User
-from .utils import send_confirmation_mail
 
 
 @receiver(post_save, sender=User)

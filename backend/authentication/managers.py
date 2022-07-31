@@ -1,6 +1,5 @@
 from django.contrib import auth
 from django.contrib.auth.models import BaseUserManager
-from django.db.models import Manager
 
 
 class UserManager(BaseUserManager):

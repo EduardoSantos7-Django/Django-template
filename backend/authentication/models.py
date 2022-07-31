@@ -1,5 +1,4 @@
-from django.contrib import auth
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from utils.models import generate_pk_base_64

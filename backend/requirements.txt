@@ -3,6 +3,7 @@ djangorestframework
 drf-spectacular
 gunicorn
 psycopg2-binary
+pylint-django
 pytest
 pytest-django
 python-dotenv

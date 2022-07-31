@@ -1,0 +1,26 @@
+[MAIN]
+load-plugins=pylint_django
+django-settings-module=admin.settings
+ignore=tests,migrations,settings.py
+
+[MESSAGES CONTROL]
+; C0103 Invalid module name
+; C0111 Missing docstring
+; C0415: Import outside toplevel
+; W0212 Access to a protected member %s of a client class
+; W0622: Redefining built-in python reserved words
+; R0901 Used when class has too many parent classes, try to reduce this to get a simpler (and so easier to use) class.
+disable=C0415, C0111, W0212, W0613, R0901
+
+[FORMAT]
+max-line-length=88 ;Python Black formatter defaults
+
+[DESIGN]
+max-args=6
+
+[TYPECHECK]
+
+# Tells whether missing members accessed in mixin class should be ignored. A
+# mixin class is detected if its name ends with "mixin" (case insensitive).
+ignore-mixin-members=yes
+generated-members=url_name,data
