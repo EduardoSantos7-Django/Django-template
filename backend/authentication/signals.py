@@ -6,9 +6,14 @@ from .utils import send_confirmation_mail
 
 
 @receiver(post_save, sender=User)
-def create_user_profile_and_mail(instance: User, created, raw, **kwargs):
-    """Send a welcome mail to recent created User."""
-    if created is True:
-        instance.set_password(instance.password)
-        instance.save(update_fields=['password'])
-        send_confirmation_mail(instance)
+def create_user_profile(instance: User, created, raw, **kwargs):
+    """Send a welcome mail to recent created User and create his related Profile"""
+    # FIXME: Not implemented
+    # if created:
+    #     # "raw" param means "created with manage.py loaddata"
+    #     if raw:
+    #         instance.set_password(instance.password)
+    #         instance.save()
+    #     else:
+    #         # Raw users already have their own profile instances
+    #         Profile.objects.create_profile(instance)

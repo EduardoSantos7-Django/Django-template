@@ -77,3 +77,41 @@ class Validated(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields = ['email', 'email_verified']
+
+
+class RequestSendResetEmail(serializers.ModelSerializer):
+    """Serialize email."""
+
+    class Meta:
+        model = models.User
+        fields = [
+            'email',
+        ]
+
+
+class ChangePassord(serializers.ModelSerializer):
+    """Serialize user password."""
+
+    password2 = serializers.CharField(required=True)
+
+    class Meta:
+        model = models.User
+        fields = [
+            'password',
+            'password2',
+        ]
+
+    def validate_password(self, attrs):
+        validate_password(attrs)
+        return attrs
+
+    def validate_password2(self, attrs):
+        if self.initial_data['password'] != self.initial_data['password2']:
+            raise serializers.ValidationError("Password doesn't match.")
+        return attrs
+
+    def update(self, instance: models.User, validated_data):
+        instance.set_password(validated_data['password'])
+        instance.save()
+
+        return instance
