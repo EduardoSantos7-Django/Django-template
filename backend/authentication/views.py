@@ -42,7 +42,7 @@ class AuthViewSet(GenericViewSet):
 
     serializer_class = serializers.User
 
-    @action(['POST'], detail=False)
+    @action(['POST'], detail=False, url_path='sign-in')
     def sign_in(self, request):
         """Sign user in session."""
         serializer = serializers.UserIn(data=request.data)
@@ -52,23 +52,23 @@ class AuthViewSet(GenericViewSet):
             login(request, user)
             if not serializer.data.get('remember_me'):
                 request.session.set_expiry(0)
-            serializer = self.get_serializer(user.profile)
+            serializer = self.get_serializer(user)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response('User not found.', status=status.HTTP_404_NOT_FOUND)
 
-    @action(['POST'], detail=False)
+    @action(['POST'], detail=False, url_path='sign-out')
     def sign_out(self, request):
         """Sign user out in session."""
         logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    @action(['POST'], detail=False)
+    @action(['POST'], detail=False, url_path='sign-up')
     def sign_up(self, request):
         """Sign user up in DB."""
         serializer = serializers.UserUp(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.create(serializer.validated_data)
-        data = self.get_serializer(user.profile).data
+        data = self.get_serializer(user).data
 
         send_confirmation_mail(request, user)
 
