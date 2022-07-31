@@ -46,7 +46,7 @@ CSRF_COOKIE_SECURE = not DEBUG
 # Application definition
 
 CUSTOM_APPS = [
-    'accounts.apps.AccountsConfig',
+    'authentication.apps.AuthenticationConfig',
     'utils',
 ]
 
@@ -187,9 +187,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Authentication
 # https://docs.djangoproject.com/en/4.0/topics/auth/customizing/
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'authentication.User'
 
-AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend']
+AUTHENTICATION_BACKENDS = ['authentication.backends.EmailBackend']
 
 # DRF
 # https://www.django-rest-framework.org/

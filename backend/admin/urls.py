@@ -13,5 +13,5 @@ urlpatterns = [
     path('docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
     # Routes
     path('admin/', admin.site.urls),
-    path('account/', include('accounts.urls')),
+    path('account/', include('authentication.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

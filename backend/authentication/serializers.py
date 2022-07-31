@@ -31,10 +31,10 @@ class UserUp(serializers.ModelSerializer):
 
         model = models.User
         fields = [
-            'email',
-            'password',
             'first_name',
             'last_name',
+            'email',
+            'password',
             'password2',
             'agreement',
         ]
