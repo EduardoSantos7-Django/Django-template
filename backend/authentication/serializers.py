@@ -79,14 +79,10 @@ class Validated(serializers.ModelSerializer):
         fields = ['email', 'email_verified']
 
 
-class RequestSendResetEmail(serializers.ModelSerializer):
+class SendEmail(serializers.Serializer):
     """Serialize email."""
 
-    class Meta:
-        model = models.User
-        fields = [
-            'email',
-        ]
+    email = serializers.EmailField(required=True)
 
 
 class ChangePassord(serializers.ModelSerializer):

@@ -14,7 +14,7 @@ from rest_framework.viewsets import GenericViewSet
 from . import serializers
 from .models import User
 from .tokens import confirm_email_token_generator
-from .utils import send_confirmation_mail, send_reset_password_mail
+from .utils import send_confirmation_email, send_reset_password_email
 
 
 @extend_schema_view(
@@ -70,12 +70,20 @@ class AuthViewSet(GenericViewSet):
         user = serializer.create(serializer.validated_data)
         data = self.get_serializer(user).data
 
-        send_confirmation_mail(request, user)
+        send_confirmation_email(request, user)
 
         return Response(data, status=status.HTTP_201_CREATED)
 
 
 @extend_schema_view(
+    resend_confirmation_mail=extend_schema(
+        summary='Resend confirmation email if account exists',
+        request=serializers.SendEmail,
+        responses={
+            status.HTTP_204_NO_CONTENT: None,
+        },
+        tags=['authentication'],
+    ),
     confirm_mail=extend_schema(
         summary='Confirm user email',
         parameters=[
@@ -91,7 +99,7 @@ class AuthViewSet(GenericViewSet):
     ),
     send_reset_password_email=extend_schema(
         summary='Send reset email if a related account exists',
-        request=serializers.RequestSendResetEmail,
+        request=serializers.SendEmail,
         responses={
             status.HTTP_204_NO_CONTENT: None,
         },
@@ -111,12 +119,36 @@ class AuthViewSet(GenericViewSet):
     ),
 )
 class AuthTokenViewset(GenericViewSet):
+    def get_serializer_class(self):
+        match self.action:
+            case 'resend_confirmation_mail' | 'send_reset_password_email':
+                self.serializer_class = serializers.SendEmail
+        return super().get_serializer_class()
+
+    @action(['POST'], detail=False, url_path=r'email/resend-confirmation-email')
+    def resend_confirmation_email(self, request, *args, **kwargs):
+        """
+        An endpoint for resend confirmation email if account exists.
+        """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+
+        try:
+            user = User.objects.get(email=data['email'])
+        except User.DoesNotExist:
+            pass
+        else:
+            send_confirmation_email(request, user)
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
     @action(
         ['GET'],
         detail=False,
         url_path=r'email/confirm/(?P<uidb64>[^/.]+)/(?P<token>[^/.]+)',
     )
-    def confirm_mail(self, request, uidb64, token, *args, **kwargs):
+    def confirm_email(self, request, uidb64, token, *args, **kwargs):
         """
         Use identifiers to validate the email confirmed by the user.
         """
@@ -139,14 +171,16 @@ class AuthTokenViewset(GenericViewSet):
         """
         An endpoint for send reset email if account exists.
         """
-        email = request.data.get('email')
-        if email:
-            try:
-                user = User.objects.get(email=email)
-            except User.DoesNotExist:
-                pass
-            else:
-                send_reset_password_mail(request, user)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+
+        try:
+            user = User.objects.get(email=data['email'])
+        except User.DoesNotExist:
+            pass
+        else:
+            send_reset_password_email(request, user)
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 

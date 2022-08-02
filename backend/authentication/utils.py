@@ -9,7 +9,7 @@ from django.utils.http import urlsafe_base64_encode
 from .tokens import confirm_email_token_generator
 
 
-def send_confirmation_mail(request, instance):
+def send_confirmation_email(request, instance):
     uidb64 = urlsafe_base64_encode(force_bytes(instance.email))
     token = confirm_email_token_generator.make_token(instance)
 
@@ -27,7 +27,7 @@ def send_confirmation_mail(request, instance):
     )
 
 
-def send_reset_password_mail(request, instance):
+def send_reset_password_email(request, instance):
     uidb64 = urlsafe_base64_encode(force_bytes(instance.email))
     token = password_reset_token_generator.make_token(instance)
 
