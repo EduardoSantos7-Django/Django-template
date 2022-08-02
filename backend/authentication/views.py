@@ -38,7 +38,7 @@ from .utils import send_confirmation_mail, send_reset_password_mail
     ),
 )
 class AuthViewSet(GenericViewSet):
-    """Viewset with services to authentication and user session control"""
+    """Viewset with services to authentication and user session control."""
 
     serializer_class = serializers.User
 

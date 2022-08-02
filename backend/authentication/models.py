@@ -11,7 +11,9 @@ def user_pk():
 
 
 class User(AbstractUser):
-    """Overide default User model."""
+    """
+    Overide default User model.
+    """
 
     # Override properties
     USERNAME_FIELD = 'email'

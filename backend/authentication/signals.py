@@ -6,7 +6,9 @@ from .models import User
 
 @receiver(post_save, sender=User)
 def create_user_profile(instance: User, created, raw, **kwargs):
-    """Send a welcome mail to recent created User and create his related Profile"""
+    """
+    Create the User related Profile.
+    """
     # FIXME: Not implemented
     # if created:
     #     # "raw" param means "created with manage.py loaddata"
