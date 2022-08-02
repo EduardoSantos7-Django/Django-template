@@ -30,7 +30,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
 
     # New fields
-    email_verified = models.BooleanField(default=True)
+    email_verified = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         full_name = self.first_name

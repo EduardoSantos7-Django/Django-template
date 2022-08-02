@@ -47,14 +47,21 @@ class AuthViewSet(GenericViewSet):
         """Sign user in session."""
         serializer = serializers.UserIn(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = authenticate(**serializer.data)
+        data = serializer.data
+        user = authenticate(**data)
         if user is not None:
             login(request, user)
-            if not serializer.data.get('remember_me'):
+            if not data.get('remember_me'):
                 request.session.set_expiry(0)
             serializer = self.get_serializer(user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response('User not found.', status=status.HTTP_404_NOT_FOUND)
+            return Response(data, status=status.HTTP_200_OK)
+
+        # Verify if user exists and not confirmed your email
+        try:
+            user: User = User.objects.get(email=data['email'], email_verified=False)
+            return Response('User email not confirmed', status.HTTP_403_FORBIDDEN)
+        except User.DoesNotExist:
+            return Response('User not found.', status=status.HTTP_404_NOT_FOUND)
 
     @action(['POST'], detail=False, url_path='sign-out')
     def sign_out(self, request):
