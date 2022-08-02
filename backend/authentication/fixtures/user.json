@@ -1,0 +1,81 @@
+[
+  {
+    "model": "authentication.user",
+    "pk": 1,
+    "fields": {
+      "first_name": "Admin",
+      "last_name": "Master",
+      "email": "admin@example.com",
+      "password": "adminadmin",
+      "email_verified": true,
+      "is_superuser": true,
+      "is_staff": true
+    }
+  },
+  {
+    "model": "authentication.user",
+    "pk": 2,
+    "fields": {
+      "first_name": "Foo",
+      "last_name": "Qux",
+      "email": "foo@example.com",
+      "password": "supersecret",
+      "email_verified": true
+    }
+  },
+  {
+    "model": "authentication.user",
+    "pk": 3,
+    "fields": {
+      "first_name": "Bar",
+      "last_name": "Qux",
+      "email": "bar@example.com",
+      "password": "supersecret",
+      "email_verified": true
+    }
+  },
+  {
+    "model": "authentication.user",
+    "pk": 4,
+    "fields": {
+      "first_name": "Baz",
+      "last_name": "Qux",
+      "email": "baz@example.com",
+      "password": "supersecret",
+      "email_verified": true
+    }
+  },
+  {
+    "model": "authentication.user",
+    "pk": 5,
+    "fields": {
+      "first_name": "Qux",
+      "last_name": "Qux",
+      "email": "qux@example.com",
+      "password": "supersecret",
+      "email_verified": true
+    }
+  },
+  {
+    "model": "authentication.user",
+    "pk": 6,
+    "fields": {
+      "first_name": "Loren",
+      "last_name": "Qux",
+      "email": "loren@example.com",
+      "password": "supersecret",
+      "email_verified": true
+    }
+  },
+  {
+    "model": "authentication.user",
+    "pk": 7,
+    "fields": {
+      "first_name": "Loren",
+      "last_name": "Qux",
+      "email": "unverified@example.com",
+      "password": "supersecret",
+      "email_verified": false
+    }
+  }
+]

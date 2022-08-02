@@ -9,12 +9,8 @@ def create_user_profile(instance: User, created, raw, **kwargs):
     """
     Create the User related Profile.
     """
-    # FIXME: Not implemented
-    # if created:
-    #     # "raw" param means "created with manage.py loaddata"
-    #     if raw:
-    #         instance.set_password(instance.password)
-    #         instance.save()
-    #     else:
-    #         # Raw users already have their own profile instances
-    #         Profile.objects.create_profile(instance)
+    if created:
+        # "raw" param means "created with manage.py loaddata"
+        if raw:
+            instance.set_password(instance.password)
+            instance.save()
