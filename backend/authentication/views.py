@@ -83,7 +83,7 @@ class AuthViewSet(GenericViewSet):
 
 
 @extend_schema_view(
-    resend_confirmation_mail=extend_schema(
+    resend_confirmation_email=extend_schema(
         summary='Resend confirmation email if account exists',
         request=serializers.SendEmail,
         responses={
@@ -91,7 +91,7 @@ class AuthViewSet(GenericViewSet):
         },
         tags=['authentication'],
     ),
-    confirm_mail=extend_schema(
+    confirm_email=extend_schema(
         summary='Confirm user email',
         parameters=[
             OpenApiParameter(name='uidb64', type=str, location=OpenApiParameter.PATH),
