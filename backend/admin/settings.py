@@ -7,7 +7,7 @@ import dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-dotenv.load_dotenv(BASE_DIR / '..' / '.env')
+dotenv.load_dotenv(BASE_DIR / '.env')
 
 # Swagger docs settings
 # https://drf-spectacular.readthedocs.io/en/latest/settings.html
@@ -37,11 +37,11 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
 ]
 
-SECURE_SSL_REDIRECT = not DEBUG
+SECURE_SSL_REDIRECT = DEBUG is False
 
-SESSION_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = DEBUG is False
 
-CSRF_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = DEBUG is False
 
 # Application definition
 
@@ -164,7 +164,9 @@ EMAIL_HOST_USER = os.getenv('EMAIL_USER')
 
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = EMAIL_PORT == 587
+
+EMAIL_USE_SSL = EMAIL_PORT == 465
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
