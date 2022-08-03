@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import dj_database_url
 import dotenv
 
 
@@ -106,16 +107,7 @@ if DEBUG:
         }
     }
 else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.getenv('PG_NAME'),
-            'USER': os.getenv('PG_USERNAME'),
-            'PASSWORD': os.getenv('PG_PASSWORD'),
-            'HOST': os.getenv('PG_HOST'),
-            'PORT': os.getenv('PG_PORT'),
-        }
-    }
+    DATABASES = {'default': dj_database_url.parse(os.getenv('DB_URL'))}
 
 
 # Password validation
